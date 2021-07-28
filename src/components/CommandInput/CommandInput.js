@@ -1,15 +1,32 @@
 import { useState } from 'react'
+import { pushLogs } from '../../redux/logs/logs.action'
+
+import { connect } from 'react-redux'
 import './CommandInput.scss'
 
-const CommandInput = () => {
+const CommandInput = ({ pushLogs }) => {
   const [inputValue, setInputValue] = useState("")
 
   const handleInputValue = (event) => {
     setInputValue(event.target.value)
   }
+
+  const submitInput = (event) => {
+    event.preventDefault()
+    //edit me (when additional features like parsing input is added)
+    const data = {
+      type: "text",
+      data: inputValue
+    }
+    pushLogs(data)
+
+    //reset input
+    setInputValue("")
+  }
+
   return(
     <section className="command_input-container">
-      <form action="">
+      <form onSubmit={ event => submitInput(event) }>
         <input 
           type="text" 
           value={ inputValue }
@@ -20,4 +37,7 @@ const CommandInput = () => {
   )
 }
 
-export default CommandInput
+const mapDispatchToProps = dispatch => ({
+  pushLogs: data => dispatch(pushLogs(data))
+})
+export default connect(null, mapDispatchToProps)(CommandInput)

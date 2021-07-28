@@ -1,15 +1,26 @@
-
-
 import ResultItem from '../ResultItem/ResultItem'
+import { useEffect } from 'react'
+import { connect } from 'react-redux'
 import './CommandResult.scss'
 
-const CommandResult = () => {
+const CommandResult = ({ logs }) => {
+  
+  const generatedLogs = logs.map(item => (
+    <ResultItem item={ item } />
+  ))
 
+  useEffect(() => {
+    
+  }, [logs])
   return(
     <section className="command_result-container">
-      <ResultItem />
+      { generatedLogs }
     </section>
   )
 }
 
-export default CommandResult
+const mapStateToProps = state => ({
+  logs: state.logs
+})
+
+export default connect(mapStateToProps)(CommandResult)

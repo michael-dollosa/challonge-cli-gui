@@ -1,7 +1,6 @@
 import './Text.scss'
 
-const Text = ({data}) => {
-
+const Text = ({ data }) => {
   return(
     <p className="logs-text">
       { data }

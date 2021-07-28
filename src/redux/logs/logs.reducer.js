@@ -1,8 +1,16 @@
 //set default state to avoid state being undefined
 const DEFAULT_STATE = [
   {
-    type: "",
-    data: null
+    type: "text",
+    data: "Hello World"
+  },
+  {
+    type: "text",
+    data: "Hello World 2"
+  },
+  {
+    type: "not text",
+    data: "Hello World"
   }
 ]
 
@@ -22,10 +30,7 @@ const chatReducer = (state = DEFAULT_STATE, action) => {
   switch(action.type) {
     case 'SET_LOGS':
       //sample return value
-      return {
-        state: [...state, ...action.payload]
-      }
-    
+      return [...state, action.payload]
     default:
       return state
   }
