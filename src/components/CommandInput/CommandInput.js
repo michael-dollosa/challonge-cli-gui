@@ -28,11 +28,13 @@ const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync }) => {
     switch(data[0]){
       case "@tournament":
         if(data[1] === "-a"){
+          setInputValue("")
           return pushTournamentLogsAsync()
         }
 
       break
       default:
+        setInputValue("")
         return console.log("invalid command")
     }
 

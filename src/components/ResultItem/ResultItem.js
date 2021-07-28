@@ -11,9 +11,12 @@ const ResultItem = ({ item }) => {
            <Text data={ item.data } />
          )
         case "tournament":
-          return(
-            <Text data="Tournament Data" />
-          )
+          const generatedTournamentComponent = item.data.map(tournament => {
+            return (
+              <Text data={ tournament.attributes.name } />
+            )
+          })
+          return generatedTournamentComponent
         default:
           return <Text data="Invalid input. Please try again." />
      }

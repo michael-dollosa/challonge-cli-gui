@@ -2,9 +2,14 @@
   width: 100%;
   height: 100%;
   background-color: hotpink;
+  
+  
+}
 
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-end;
+.command_result-main{
+  overflow-y: scroll;
+  width: 100%;
+  height: 100%;
+
+  
 }
