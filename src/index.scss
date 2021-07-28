@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+:root {
+  //include all reusable variables like color, font, font-color, that will be used on all components
+  
+}
+
+//reset
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;  /* for all elements to inherit box-sizing attribute in body element css */
+}
+
+html {
+  font-size: 62.5%; /* 1rem = 10px; 10px/16px = 62.5% -- 16px is default font size in browser*/
+  font-family: 'Lato', sans-serif;
+  scroll-behavior: smooth;
+  // font-family: 'Roboto', sans-serif;
+  // font-size: 
+  // font-weight: 300;
+
+  @media only screen and (max-width: 500px) {
+    font-size: 32.5%;
+  }
+}
+
+body{
+  width: 100%;
+  height: 100vh;
+  background-color: violet;
+}

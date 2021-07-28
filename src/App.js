@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.scss'
+import { useEffect } from 'react'
+import { getTournaments, getSpecificTournament } from './api/tournament'
+import CommandPage from './components/CommandPage/CommandPage'
+const App = () => {
+  useEffect(() => {
+    getTournaments()
+      .then(res => console.log(res))
+      .catch(err => err)
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    getSpecificTournament('r6siege_tournament_xx')
+      .then(res => console.log("Get Tournanebt", res))
+      .catch(err => err)
+    
+  }, [])
+  return(
+    <>
+    <CommandPage />
+    </>
+  )
 }
 
-export default App;
+export default App
