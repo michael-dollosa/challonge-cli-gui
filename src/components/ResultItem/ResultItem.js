@@ -12,7 +12,7 @@ const ResultItem = ({ item }) => {
          )
         case "tournament":
           return(
-            <Text data={ item.data } />
+            <Text data="Tournament Data" />
           )
         default:
           return <Text data="Invalid input. Please try again." />

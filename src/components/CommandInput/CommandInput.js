@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { pushTextLogs } from '../../redux/logs/logs.action'
+import { pushTextLogs, pushTournamentLogsAsync } from '../../redux/logs/logs.action'
 
 import { connect } from 'react-redux'
 import './CommandInput.scss'
 import { parseInput } from '../../helper/inputParser'
 
-const CommandInput = ({ pushTextLogs }) => {
+const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync }) => {
   const [inputValue, setInputValue] = useState("")
 
   const handleInputValue = (event) => {
@@ -14,8 +14,6 @@ const CommandInput = ({ pushTextLogs }) => {
 
   const submitInput = (event) => {
     event.preventDefault()
-    console.log("triggered Submit")
-    //edit me (when additional features like parsing input is added)
 
     //parse input to check if command or just text
     const { isCommand, data } = parseInput(inputValue)
@@ -25,7 +23,18 @@ const CommandInput = ({ pushTextLogs }) => {
       setInputValue("")
       return pushTextLogs(data)
     } 
-    console.log("input is a command")
+
+    //logic for command
+    switch(data[0]){
+      case "@tournament":
+        if(data[1] === "-a"){
+          return pushTournamentLogsAsync()
+        }
+
+      break
+      default:
+        return console.log("invalid command")
+    }
 
     //reset input
     setInputValue("")
@@ -45,6 +54,7 @@ const CommandInput = ({ pushTextLogs }) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  pushTextLogs: data => dispatch(pushTextLogs(data))
+  pushTextLogs: data => dispatch(pushTextLogs(data)),
+  pushTournamentLogsAsync: () => dispatch(pushTournamentLogsAsync())
 })
 export default connect(null, mapDispatchToProps)(CommandInput)
