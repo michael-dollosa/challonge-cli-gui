@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { pushLogs } from '../../redux/logs/logs.action'
+import { pushTextLogs } from '../../redux/logs/logs.action'
 
 import { connect } from 'react-redux'
 import './CommandInput.scss'
 import { parseInput } from '../../helper/inputParser'
 
-const CommandInput = ({ pushLogs }) => {
+const CommandInput = ({ pushTextLogs }) => {
   const [inputValue, setInputValue] = useState("")
 
   const handleInputValue = (event) => {
@@ -14,13 +14,18 @@ const CommandInput = ({ pushLogs }) => {
 
   const submitInput = (event) => {
     event.preventDefault()
+    console.log("triggered Submit")
     //edit me (when additional features like parsing input is added)
-    const data = {
-      type: "text",
-      data: inputValue
-    }
-    const parsedResult = parseInput(inputValue)
-    pushLogs(parsedResult)
+
+    //parse input to check if command or just text
+    const { isCommand, data } = parseInput(inputValue)
+
+    //check for input first
+    if(!isCommand) {
+      setInputValue("")
+      return pushTextLogs(data)
+    } 
+    console.log("input is a command")
 
     //reset input
     setInputValue("")
@@ -40,6 +45,6 @@ const CommandInput = ({ pushLogs }) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  pushLogs: data => dispatch(pushLogs(data))
+  pushTextLogs: data => dispatch(pushTextLogs(data))
 })
 export default connect(null, mapDispatchToProps)(CommandInput)

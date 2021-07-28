@@ -1,8 +1,30 @@
-export const parseInput = data => {
-  const splitInput = data.split(" ") //split by space
-  const checkCommandChar = splitInput[0][0] //check if input is command or just text
+// import { getTournaments } from "../api/tournament"
 
-  //check if command or not
-  if(checkCommandChar !== "@") return { type: "text", data: data }
-  return { type: "text", data: `this is a command ${ data }` }
+// const parseCommand = (command)=> {
+//   console.log(command)
+//   //get first item in array
+//   switch(command[0]){
+//     case "@tournament":
+//       if(command[1] === "-a") {
+//         console.log("inside -a")
+        
+//         (async() => {return { type: 'tournament', data: await getTournaments().data.data}})()
+//       }
+//       else{
+//         return { type: 'text', data: "invalid tournament command"}
+//       }
+//       break
+      
+//     default:
+//       return { type: 'text', data: "invalid command"}
+//   }
+// }
+
+
+export const parseInput = input => {
+  const data = input.split(" ") //split by space
+  const isCommand = data[0][0] === "@" ? true : false //check if input is command or just text
+
+  //this function returns obj
+  return { isCommand,  data  }
 }

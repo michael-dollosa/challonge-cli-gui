@@ -1,0 +1,13 @@
+Tournament commands
+@tournament -a //get all tournment name with redirect links
+@tournament -s "tournament url" //get specific tournament
+@tournament -d "tournament url" //delete specific tournament
+
+
+//Flow
+
+1. User types input/command
+2. OnSubmit fires function to check if input or command
+3. If input, returns data obj to be stored in state { type: "text", data: data } where data is the string
+4. If command, checks if command is listed via switch; if not, return default data object
+5. If command found, use API to generate result and store in data. Then return data object { type: "tournament", data: data } where data is the result from API and type is the type of API use (tournament, matches etc..)

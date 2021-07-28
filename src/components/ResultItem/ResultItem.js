@@ -3,16 +3,6 @@ import Text from '../Text/Text'
 import './ResultItem.scss'
 
 const ResultItem = ({ item }) => {
-  console.log("item", item)
-  /**
-   item format
-   itme ={
-     type: "text",
-     data
-   }
-   
-   data depends on type of item
-   */
 
    const renderItem = item => {
      switch(item.type){
@@ -20,7 +10,10 @@ const ResultItem = ({ item }) => {
          return(
            <Text data={ item.data } />
          )
-      
+        case "tournament":
+          return(
+            <Text data={ item.data } />
+          )
         default:
           return <Text data="Invalid input. Please try again." />
      }
