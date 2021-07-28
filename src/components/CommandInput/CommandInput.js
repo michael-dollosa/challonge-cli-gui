@@ -3,6 +3,7 @@ import { pushLogs } from '../../redux/logs/logs.action'
 
 import { connect } from 'react-redux'
 import './CommandInput.scss'
+import { parseInput } from '../../helper/inputParser'
 
 const CommandInput = ({ pushLogs }) => {
   const [inputValue, setInputValue] = useState("")
@@ -18,7 +19,8 @@ const CommandInput = ({ pushLogs }) => {
       type: "text",
       data: inputValue
     }
-    pushLogs(data)
+    const parsedResult = parseInput(inputValue)
+    pushLogs(parsedResult)
 
     //reset input
     setInputValue("")
