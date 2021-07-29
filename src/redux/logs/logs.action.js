@@ -1,4 +1,4 @@
-import { getTournaments, getSpecificTournament } from '../../api/tournament'
+import { getTournaments, getSpecificTournament, deleteTournament } from '../../api/tournament'
 import { getSpecificMatches, getMatches } from '../../api/match'
 
 export const pushTextLogs = data => ({
@@ -77,6 +77,20 @@ export const pushSpecificTournamentLogsAsync = (url) => {
   }
 }
 
+export const deleteTournamentAsync = (url) => {
+  const modifiedUrl = url.replace(/^"(.*)"$/, '$1')
+  return dispatch => {
+    dispatch(pushTextLogs(`Deleting tournament with url of ${url} from your account`))
+    deleteTournament(modifiedUrl)
+      .then(response => {
+        dispatch(pushTextLogs(`Tournament with url of ${url} has been deleted from your account. Type @tournament -a to check.`))
+      })
+      .catch(error => {
+        dispatch(pushTextLogs("Command failed. Please double check the URL."))
+      })
+  }
+}
+
 
 export const pushMatchLogAsync = (url) => {
   const modifiedUrl = url.replace(/^"(.*)"$/, '$1')
@@ -98,20 +112,17 @@ export const pushSpecificMatchLogAsync = (url, matchId) => {
   const modifiedMatchId = matchId.replace(/^"(.*)"$/, '$1')
   return dispatch => {
     dispatch(pushTextLogs(`Checking match ${matchId} of tournament with url of ${url} from your account`))
-    console.log("match Id", matchId, typeof(matchId))
-    console.log("url", modifiedUrl)
     getSpecificMatches(modifiedUrl, parseInt(modifiedMatchId))
-    
       .then(response => {
-        console.log("Specific Match Response", response)
-        
+        //success response can be undefined based on API
         if(response === undefined) return dispatch(pushTextLogs("Command failed. Please double check the URL of Tournament and Match ID."))
 
+        //dispatch if response have data
         dispatch(pushSpecificMatchLogs(response.data.data, modifiedUrl))
-
       })
       .catch(error => {
         dispatch(pushTextLogs(error))
       })
   }
 }
+

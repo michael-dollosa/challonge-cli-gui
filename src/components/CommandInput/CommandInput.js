@@ -1,12 +1,11 @@
 import { useState } from 'react'
-import { pushTextLogs, pushTournamentLogsAsync, pushSpecificTournamentLogsAsync, pushMatchLogAsync, pushSpecificMatchLogAsync } from '../../redux/logs/logs.action'
+import { pushTextLogs, pushTournamentLogsAsync, pushSpecificTournamentLogsAsync, pushMatchLogAsync, pushSpecificMatchLogAsync, deleteTournamentAsync } from '../../redux/logs/logs.action'
 
 import { connect } from 'react-redux'
 import './CommandInput.scss'
 import { parseInput } from '../../helper/inputParser'
-import Text from '../Text/Text'
 
-const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTournamentLogsAsync, pushMatchLogAsync, pushSpecificMatchLogAsync }) => {
+const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTournamentLogsAsync, pushMatchLogAsync, pushSpecificMatchLogAsync, deleteTournamentAsync }) => {
   const [inputValue, setInputValue] = useState("")
 
   const handleInputValue = (event) => {
@@ -38,6 +37,12 @@ const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTourn
         if(data.length === 3 && data[1] === "-s" && (data[2][0] == '"' && data[2][data[2].length-1] == '"')){
           setInputValue("")
           return pushSpecificTournamentLogsAsync(data[2])
+        }
+
+        //checking for delete tournament command
+        if(data.length === 3 && data[1] === "-d" && (data[2][0] == '"' && data[2][data[2].length-1] == '"')){
+          setInputValue("")
+          return deleteTournamentAsync(data[2])
         }
 
         //default logic if command not found under @tournament
@@ -85,6 +90,7 @@ const mapDispatchToProps = dispatch => ({
   pushTournamentLogsAsync: () => dispatch(pushTournamentLogsAsync()),
   pushSpecificTournamentLogsAsync: url => dispatch(pushSpecificTournamentLogsAsync(url)),
   pushMatchLogAsync: url => dispatch(pushMatchLogAsync(url)),
-  pushSpecificMatchLogAsync: (url, matchId) => dispatch(pushSpecificMatchLogAsync(url, matchId))
+  pushSpecificMatchLogAsync: (url, matchId) => dispatch(pushSpecificMatchLogAsync(url, matchId)),
+  deleteTournamentAsync: (url) => dispatch(deleteTournamentAsync(url))
 })
 export default connect(null, mapDispatchToProps)(CommandInput)
