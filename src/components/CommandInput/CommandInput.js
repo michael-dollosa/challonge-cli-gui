@@ -1,16 +1,24 @@
-import { useState } from 'react'
+/* eslint-disable eqeqeq */
+import { useState, useEffect } from 'react'
 import { pushTextLogs, pushCommandLogs, pushTournamentLogsAsync, pushSpecificTournamentLogsAsync, pushMatchLogAsync, pushSpecificMatchLogAsync, deleteTournamentAsync } from '../../redux/logs/logs.action'
-
+import { setAPIKey } from '../../redux/user/user.action'
 import { connect } from 'react-redux'
 import './CommandInput.scss'
 import { parseInput } from '../../helper/inputParser'
+import axios from '../../api/axiosInstance'
 
-const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTournamentLogsAsync, pushMatchLogAsync, pushSpecificMatchLogAsync, deleteTournamentAsync, pushCommandLogs }) => {
+const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTournamentLogsAsync, pushMatchLogAsync, pushSpecificMatchLogAsync, deleteTournamentAsync, pushCommandLogs, apiKey, setAPIKey }) => {
   const [inputValue, setInputValue] = useState("")
-
+  
   const handleInputValue = (event) => {
     setInputValue(event.target.value)
   }
+
+  useEffect(() => {
+    console.log("use effect trigger")
+    console.log("api key", apiKey)
+    axios.defaults.headers.common['Authorization'] = apiKey;
+  }, [apiKey])
 
   const submitInput = (event) => {
     event.preventDefault()
@@ -26,6 +34,22 @@ const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTourn
 
     //if input is command
     switch(data[0]){
+      case "@api":
+        if(data.length === 3 && data[1] === "-s" && (data[2][0] == '"' && data[2][data[2].length-1] == '"')){
+          setInputValue("")
+          setAPIKey(data[2])
+          pushTextLogs("API Key has been set")
+          return true
+        }
+
+        if(data.length === 2 && data[1] === "-g"){
+          setInputValue("")
+          pushTextLogs(`API Key Used: ${apiKey}`)
+          return true
+        }
+
+        setInputValue("")
+        return pushTextLogs("Invalid Command. Please see @commands for list of commands.")
       case "@commands":
         setInputValue("")
         return pushCommandLogs()
@@ -34,7 +58,7 @@ const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTourn
         //checking if command for get all tournaments
         if(data.length === 2 && data[1] === "-a"){
           setInputValue("")
-          return pushTournamentLogsAsync()
+          return pushTournamentLogsAsync(apiKey)
         }
 
         //checking if command for get specific tournament via url (url must be inside double quotes)
@@ -89,7 +113,12 @@ const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTourn
   )
 }
 
+const mapStateToProps = state => ({
+  apiKey: state.user.api
+})
+
 const mapDispatchToProps = dispatch => ({
+  setAPIKey: data => dispatch(setAPIKey(data)),
   pushTextLogs: data => dispatch(pushTextLogs(data)),
   pushCommandLogs: () => dispatch(pushCommandLogs()),
   pushTournamentLogsAsync: () => dispatch(pushTournamentLogsAsync()),
@@ -98,4 +127,4 @@ const mapDispatchToProps = dispatch => ({
   pushSpecificMatchLogAsync: (url, matchId) => dispatch(pushSpecificMatchLogAsync(url, matchId)),
   deleteTournamentAsync: (url) => dispatch(deleteTournamentAsync(url))
 })
-export default connect(null, mapDispatchToProps)(CommandInput)
+export default connect(mapStateToProps, mapDispatchToProps)(CommandInput)

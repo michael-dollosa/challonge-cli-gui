@@ -2,27 +2,11 @@
 const DEFAULT_STATE = [
   {
     type: "text",
-    data: "Hello World"
+    data: "Hi new user, welcome to the Challong CLI GUI or whatever you call it. First things first. Please setup your API Key. You may check the command using @commands"
   },
-  {
-    type: "text",
-    data: "Hello World 2"
-  },
-  {
-    type: "not text",
-    data: "Hello World"
-  }
+  
 ]
 
-/*
-[
-  {
-    type: "command" | "text",
-    data: data
-  }
-]
-
-*/
 //sample reducer format
 const chatReducer = (state = DEFAULT_STATE, action) => {
 

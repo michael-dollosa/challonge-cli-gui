@@ -1,5 +1,6 @@
 import axios from './axiosInstance'
 
+// axios.defaults.headers.common['Authorization'] = 'foo bar';
 //get all tournament created by user
 export const getTournaments = () => {
   return axios.get('/tournaments.json', {data:null})
@@ -11,7 +12,7 @@ export const getTournaments = () => {
 export const getSpecificTournament = (url) => {
   return axios.get(`/tournaments/${url}.json`, {data:null})
     .then(res => res)
-    .catch(err => console.error(err))
+    .catch(err => err)
 }
 
 //delete specific tournament via url

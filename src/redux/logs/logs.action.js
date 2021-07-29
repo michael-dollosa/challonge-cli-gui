@@ -60,14 +60,14 @@ export const pushSpecificMatchLogs = (data, tournamentURL) => ({
   }
 }) 
 
-export const pushTournamentLogsAsync = () => {
+export const pushTournamentLogsAsync = (apiKey) => {
   return dispatch => {
     dispatch(pushTextLogs("Checking all tournaments from your account"))
-    getTournaments()
+    getTournaments(apiKey)
       .then(response => {
         dispatch(pushTournamentLogs(response.data.data))
       })
-      .catch(error => console.error("Redux Get Tournament Error: ", error))
+      .catch(error => dispatch(pushTextLogs("Command Failed. Kindly double check all the parameters, incudling the API Key that you have set.")))
   }
 }
 
@@ -80,7 +80,7 @@ export const pushSpecificTournamentLogsAsync = (url) => {
         dispatch(pushSpecificTournamentLogs(response.data.data))
       })
       .catch(error => {
-        dispatch(pushTextLogs("Command failed. Please double check the URL."))
+        dispatch(pushTextLogs("Command Failed. Kindly double check all the parameters, incudling the API Key that you have set."))
       })
   }
 }
@@ -94,7 +94,7 @@ export const deleteTournamentAsync = (url) => {
         dispatch(pushTextLogs(`Tournament with url of ${url} has been deleted from your account. Type @tournament -a to check.`))
       })
       .catch(error => {
-        dispatch(pushTextLogs("Command failed. Please double check the URL."))
+        dispatch(pushTextLogs("Command Failed. Kindly double check all the parameters, incudling the API Key that you have set."))
       })
   }
 }
@@ -110,7 +110,7 @@ export const pushMatchLogAsync = (url) => {
         dispatch(pushMatchLogs(response.data.data, modifiedUrl))
       })
       .catch(error => {
-        dispatch(pushTextLogs("Command failed. Please double check the URL."))
+        dispatch(pushTextLogs("Command Failed. Kindly double check all the parameters, incudling the API Key that you have set."))
       })
   }
 }
@@ -129,7 +129,7 @@ export const pushSpecificMatchLogAsync = (url, matchId) => {
         dispatch(pushSpecificMatchLogs(response.data.data, modifiedUrl))
       })
       .catch(error => {
-        dispatch(pushTextLogs(error))
+        dispatch(pushTextLogs("Command Failed. Kindly double check all the parameters, incudling the API Key that you have set."))
       })
   }
 }

@@ -5,6 +5,25 @@ const CommandList = () => {
 
   return(
     <section className="command_list-container">
+
+    <h2>API Key commands</h2>
+    <div className="command_list-item-container">
+      <section className="command_list-commands">
+      <h1>@api -g</h1>
+      </section>
+      <section className="command_list-description">
+      <h1>Get current API Key used</h1>
+      </section>
+    </div>
+    <div className="command_list-item-container">
+      <section className="command_list-commands">
+      <h1>@api -s "api key"</h1>
+      </section>
+      <section className="command_list-description">
+      <h1>Set API key to be used</h1>
+      </section>
+    </div>
+
     <h2>Tournament commands</h2>
     <div className="command_list-item-container">
       <section className="command_list-commands">

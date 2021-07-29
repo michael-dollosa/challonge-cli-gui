@@ -4,7 +4,11 @@ Tournament commands
 @tournament -d "tournament url" //delete specific tournament
 
 Match commands
-@match -a "url of tournament" //get all matches of tournament
+@match -a "tournament URL"              //get all matches of tournament
+@match -s "tournament URL" "Match ID"   //get all matches of tournament
+
+
+
 /
 //matches
 response.data.included -> array of matches
@@ -19,7 +23,24 @@ data: {
   {
     match.id
     match link
-    player 1 name
-    player 2 name
+    player 1 name/id
+    player 2 name/id
   }
 }
+
+
+ "id": "245843350",
+            "type": "match",
+            "attributes": {
+                "state": "open",
+                "round": 1,
+                "identifier": "B",
+                "scores": "0 - 0",
+                "suggestedPlayOrder": 2,
+                "scoreInSets": [],
+                "timestamps": {
+                    "startedAt": "2021-07-29T11:26:44.852Z",
+                    "createdAt": "2021-07-29T11:26:44.497Z",
+                    "updatedAt": "2021-07-29T11:26:44.853Z",
+                    "underwayAt": null
+                }
