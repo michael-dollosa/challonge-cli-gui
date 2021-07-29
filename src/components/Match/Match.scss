@@ -11,12 +11,19 @@
   flex-wrap: wrap;
   margin: 1rem;
   >h1{
-    min-height: 3rem;
+    min-height: 2rem;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 1.3rem;
     text-align: center;
     font-weight: 500;
+  }
+  >h3{
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+    text-align: center;
+    font-weight: 300;
+    color: #dfa82a;
   }
   
   >a{

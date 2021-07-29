@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { pushTextLogs, pushTournamentLogsAsync, pushSpecificTournamentLogsAsync, pushMatchLogAsync } from '../../redux/logs/logs.action'
+import { pushTextLogs, pushTournamentLogsAsync, pushSpecificTournamentLogsAsync, pushMatchLogAsync, pushSpecificMatchLogAsync } from '../../redux/logs/logs.action'
 
 import { connect } from 'react-redux'
 import './CommandInput.scss'
 import { parseInput } from '../../helper/inputParser'
 import Text from '../Text/Text'
 
-const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTournamentLogsAsync, pushMatchLogAsync }) => {
+const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTournamentLogsAsync, pushMatchLogAsync, pushSpecificMatchLogAsync }) => {
   const [inputValue, setInputValue] = useState("")
 
   const handleInputValue = (event) => {
@@ -50,6 +50,11 @@ const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTourn
           return pushMatchLogAsync(data[2])
         }
 
+        if(data.length === 4 && data[1] === "-s" && (data[2][0] == '"' && data[2][data[2].length-1] == '"') && (data[3][0] == '"' && data[3][data[3].length-1] == '"')){
+          setInputValue("")
+          return pushSpecificMatchLogAsync(data[2],data[3])
+        }
+
         //default logic if command not found under @tournament
         setInputValue("")
         return pushTextLogs("Invalid Command. Please see command list for possible commands.")
@@ -79,6 +84,7 @@ const mapDispatchToProps = dispatch => ({
   pushTextLogs: data => dispatch(pushTextLogs(data)),
   pushTournamentLogsAsync: () => dispatch(pushTournamentLogsAsync()),
   pushSpecificTournamentLogsAsync: url => dispatch(pushSpecificTournamentLogsAsync(url)),
-  pushMatchLogAsync: url => dispatch(pushMatchLogAsync(url))
+  pushMatchLogAsync: url => dispatch(pushMatchLogAsync(url)),
+  pushSpecificMatchLogAsync: (url, matchId) => dispatch(pushSpecificMatchLogAsync(url, matchId))
 })
 export default connect(null, mapDispatchToProps)(CommandInput)

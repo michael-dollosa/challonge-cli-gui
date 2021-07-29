@@ -32,8 +32,12 @@ const ResultItem = ({ item }) => {
         //match data can be empty when tournament have not been started. check first condition
         if(item.data.length === 0) return <Text data={ "Tournament have not yet started. Kindly start the tournament first before accessing matches." } />
 
-        //return matches if found
+        //return matches
         return generatedMatchComponent
+      case "specific match":
+        return(
+          <Match data={ item.data } tournamentURL={ item.tournamentURL }/>
+        )
 
         default:
           return <Text data="Invalid input. Please try again." />

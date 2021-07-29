@@ -43,6 +43,15 @@ export const pushMatchLogs = (data, tournamentURL) => ({
   }
 }) 
 
+export const pushSpecificMatchLogs = (data, tournamentURL) => ({
+  type: 'PUSH_TOURNAMENT_LOGS',
+  payload: {
+    type: 'specific match',
+    data: data,
+    tournamentURL: tournamentURL
+  }
+}) 
+
 export const pushTournamentLogsAsync = () => {
   return dispatch => {
     dispatch(pushTextLogs("Checking all tournaments from your account"))
@@ -76,10 +85,33 @@ export const pushMatchLogAsync = (url) => {
     getMatches(modifiedUrl)
       .then(response => {
         // console.log("Match Response", response)
-        dispatch(pushMatchLogs(response.data.included, modifiedUrl))
+        dispatch(pushMatchLogs(response.data.data, modifiedUrl))
       })
       .catch(error => {
         dispatch(pushTextLogs("Command failed. Please double check the URL."))
+      })
+  }
+}
+
+export const pushSpecificMatchLogAsync = (url, matchId) => {
+  const modifiedUrl = url.replace(/^"(.*)"$/, '$1')
+  const modifiedMatchId = matchId.replace(/^"(.*)"$/, '$1')
+  return dispatch => {
+    dispatch(pushTextLogs(`Checking match ${matchId} of tournament with url of ${url} from your account`))
+    console.log("match Id", matchId, typeof(matchId))
+    console.log("url", modifiedUrl)
+    getSpecificMatches(modifiedUrl, parseInt(modifiedMatchId))
+    
+      .then(response => {
+        console.log("Specific Match Response", response)
+        
+        if(response === undefined) return dispatch(pushTextLogs("Command failed. Please double check the URL of Tournament and Match ID."))
+
+        dispatch(pushSpecificMatchLogs(response.data.data, modifiedUrl))
+
+      })
+      .catch(error => {
+        dispatch(pushTextLogs(error))
       })
   }
 }
