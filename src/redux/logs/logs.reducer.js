@@ -31,11 +31,16 @@ const chatReducer = (state = DEFAULT_STATE, action) => {
     case 'PUSH_TEXT_LOGS':
       //sample return value
       return [...state, action.payload]
-  case 'PUSH_TOURNAMENT_LOGS':
+    case 'PUSH_TOURNAMENT_LOGS':
+      return [...state, action.payload]
+    case 'PUSH_COMMAND_LOGS':
       return [...state, action.payload]
     default:
       return state
   }
+
+  
+
 }
 
 export default chatReducer

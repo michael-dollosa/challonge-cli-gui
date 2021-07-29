@@ -1,0 +1,33 @@
+.command_list-container{
+  width: 100%;
+  >h2{
+    font-size: 1.3rem;
+    font-weight: 500;
+    padding: 1rem 0;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+}
+
+.command_list-item-container{
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  // background-color: red;
+
+  .command_list-commands{
+    width: 60%;
+    // background-color: pink;
+  }
+
+  .command_list-description{
+    width: 40%;
+  }
+  .command_list-commands,
+  .command_list-description{
+    >h1{
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+  }
+}

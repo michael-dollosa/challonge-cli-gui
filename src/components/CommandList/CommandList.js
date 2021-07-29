@@ -1,0 +1,62 @@
+
+import './CommandList.scss'
+
+const CommandList = () => {
+
+  return(
+    <section className="command_list-container">
+    <h2>Tournament commands</h2>
+    <div className="command_list-item-container">
+      <section className="command_list-commands">
+      <h1>@tournament -a</h1>
+      </section>
+      <section className="command_list-description">
+      <h1>Get all tournment name with redirect links</h1>
+      </section>
+    </div>
+
+    <div className="command_list-item-container">
+      <section className="command_list-commands">
+      <h1>@tournament -s "tournament url" </h1>
+      </section>
+      <section className="command_list-description">
+      <h1>Get specific tournament</h1>
+      </section>
+    </div>
+
+    <div className="command_list-item-container">
+      <section className="command_list-commands">
+      <h1>@tournament -d "tournament url" </h1>
+      </section>
+      <section className="command_list-description">
+      <h1>Delete specific tournament</h1>
+      </section>
+    </div>
+
+
+    <h2>Match commands</h2>
+
+    <div className="command_list-item-container">
+      <section className="command_list-commands">
+      <h1>@match -a "tournament URL"</h1>
+      </section>
+      <section className="command_list-description">
+      <h1>Get all matches of tournament</h1>
+      </section>
+    </div>
+
+    <div className="command_list-item-container">
+      <section className="command_list-commands">
+      <h1>@match -s "tournament URL" "Match ID"</h1>
+      </section>
+      <section className="command_list-description">
+      <h1>Get specific match based on tournament URL</h1>
+      </section>
+    </div>
+
+
+    </section>
+  )
+}
+
+export default CommandList

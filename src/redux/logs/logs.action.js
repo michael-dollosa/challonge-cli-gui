@@ -9,6 +9,14 @@ export const pushTextLogs = data => ({
   }
 })
 
+export const pushCommandLogs = () => ({
+  type: 'PUSH_COMMAND_LOGS',
+  payload: {
+    type: 'command',
+    data: null
+  }
+})
+
 export const pushTournamentLogs = data => ({
   type: 'PUSH_TOURNAMENT_LOGS',
   payload: {

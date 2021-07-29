@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { pushTextLogs, pushTournamentLogsAsync, pushSpecificTournamentLogsAsync, pushMatchLogAsync, pushSpecificMatchLogAsync, deleteTournamentAsync } from '../../redux/logs/logs.action'
+import { pushTextLogs, pushCommandLogs, pushTournamentLogsAsync, pushSpecificTournamentLogsAsync, pushMatchLogAsync, pushSpecificMatchLogAsync, deleteTournamentAsync } from '../../redux/logs/logs.action'
 
 import { connect } from 'react-redux'
 import './CommandInput.scss'
 import { parseInput } from '../../helper/inputParser'
 
-const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTournamentLogsAsync, pushMatchLogAsync, pushSpecificMatchLogAsync, deleteTournamentAsync }) => {
+const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTournamentLogsAsync, pushMatchLogAsync, pushSpecificMatchLogAsync, deleteTournamentAsync, pushCommandLogs }) => {
   const [inputValue, setInputValue] = useState("")
 
   const handleInputValue = (event) => {
@@ -17,7 +17,7 @@ const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTourn
 
     //parse input to check if command or just text
     const { isCommand, data } = parseInput(inputValue)
-    console.log("parsed data", data)
+
     //print command first
     pushTextLogs(inputValue)
 
@@ -26,6 +26,10 @@ const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTourn
 
     //if input is command
     switch(data[0]){
+      case "@commands":
+        setInputValue("")
+        return pushCommandLogs()
+
       case "@tournament":
         //checking if command for get all tournaments
         if(data.length === 2 && data[1] === "-a"){
@@ -47,7 +51,7 @@ const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTourn
 
         //default logic if command not found under @tournament
         setInputValue("")
-        return pushTextLogs("Invalid Command. Please see command list for possible commands.")
+        return pushTextLogs("Invalid Command. Please see @commands for list of commands.")
       case "@match":
         //checking if command for get match via url (url must be inside double quotes)
         if(data.length === 3 && data[1] === "-a" && (data[2][0] == '"' && data[2][data[2].length-1] == '"')){
@@ -62,11 +66,11 @@ const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTourn
 
         //default logic if command not found under @tournament
         setInputValue("")
-        return pushTextLogs("Invalid Command. Please see command list for possible commands.")
+        return pushTextLogs("Invalid Command. Please see @commands for list of commands.")
       default:
         //default logic if command not found under all commands
         setInputValue("")
-        return pushTextLogs("Invalid Command. Please see command list for possible commands.")
+        return pushTextLogs("Invalid Command. Please see @commands for list of commands.")
     }
   }
 
@@ -87,6 +91,7 @@ const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTourn
 
 const mapDispatchToProps = dispatch => ({
   pushTextLogs: data => dispatch(pushTextLogs(data)),
+  pushCommandLogs: () => dispatch(pushCommandLogs()),
   pushTournamentLogsAsync: () => dispatch(pushTournamentLogsAsync()),
   pushSpecificTournamentLogsAsync: url => dispatch(pushSpecificTournamentLogsAsync(url)),
   pushMatchLogAsync: url => dispatch(pushMatchLogAsync(url)),

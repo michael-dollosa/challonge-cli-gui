@@ -1,4 +1,5 @@
 
+import CommandList from '../CommandList/CommandList'
 import Match from '../Match/Match'
 import Text from '../Text/Text'
 import Tournaments from '../Tournaments/Tournaments'
@@ -8,6 +9,10 @@ const ResultItem = ({ item }) => {
 
   const renderItem = item => {
     switch(item.type){
+      case "command":
+        return(
+          <CommandList />
+        )
       case "text":
         return(
           <Text data={ item.data } />
