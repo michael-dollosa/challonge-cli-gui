@@ -9,6 +9,7 @@ export const getTournaments = () => {
 
 //get specific tournament data via url
 export const getSpecificTournament = (url) => {
+  console.log("specific tournament api dispatch")
   return axios.get(`/tournaments/${url}.json`, {data:null})
     .then(res => res)
     .catch(err => console.error(err))

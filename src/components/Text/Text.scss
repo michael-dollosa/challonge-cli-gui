@@ -1,4 +1,19 @@
 .logs-text{
   font-size: 1.3rem;
   font-weight: 300;
+  >p{
+    >.pound{
+      color: #549699;
+    }
+    >.user{
+      color: #79aa7d;
+    }
+    >.directory{
+      color: #dfa82a;
+    }
+    >.git{
+      color: #94b3a8;
+    }
+  }
 }
+

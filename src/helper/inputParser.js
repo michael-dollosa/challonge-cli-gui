@@ -1,25 +1,5 @@
-// import { getTournaments } from "../api/tournament"
 
-// const parseCommand = (command)=> {
-//   console.log(command)
-//   //get first item in array
-//   switch(command[0]){
-//     case "@tournament":
-//       if(command[1] === "-a") {
-//         console.log("inside -a")
-        
-//         (async() => {return { type: 'tournament', data: await getTournaments().data.data}})()
-//       }
-//       else{
-//         return { type: 'text', data: "invalid tournament command"}
-//       }
-//       break
-      
-//     default:
-//       return { type: 'text', data: "invalid command"}
-//   }
-// }
-
+export const defaultIcon = "https://secure.gravatar.com/avatar/3d7e6982cff393f19d5f86b30828402e?r=r&s=40&d=https://s3.amazonaws.com/challonge_app/misc/challonge_fireball_gray.png"
 
 export const parseInput = input => {
   const data = input.split(" ") //split by space
