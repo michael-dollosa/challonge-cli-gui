@@ -18,34 +18,37 @@ const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTourn
 
     //parse input to check if command or just text
     const { isCommand, data } = parseInput(inputValue)
+    console.log("parsed data", data)
+    //print command first
+    pushTextLogs(inputValue)
 
-    //check for input first
-    if(!isCommand) {
-      setInputValue("")
-      return pushTextLogs(data)
-    } 
+    //check for input first, then exit
+    if(!isCommand) return setInputValue("")
 
-    //logic for command
+    //if input is command
     switch(data[0]){
       case "@tournament":
+        //checking if command for get all tournaments
         if(data.length === 2 && data[1] === "-a"){
           setInputValue("")
           return pushTournamentLogsAsync()
         }
-        if(data.length === 3 && data[1] === "-s"){
+
+        //checking if command for get specific tournament via url (url must be inside double quotes)
+        if(data.length === 3 && data[1] === "-s" && (data[2][0] == '"' && data[2][data[2].length-1] == '"')){
           setInputValue("")
           return pushSpecificTournamentLogsAsync(data[2])
         }
 
+        //default logic if command not found under @tournament
         setInputValue("")
-        return pushTextLogs("Invalid Command. Please see Command List for possible commands.")
-      default:
-        setInputValue("")
-        return console.log("invalid command")
-    }
+        return pushTextLogs("Invalid Command. Please see command list for possible commands.")
 
-    //reset input
-    setInputValue("")
+      default:
+        //default logic if command not found under all commands
+        setInputValue("")
+        return pushTextLogs("Invalid Command. Please see command list for possible commands.")
+    }
   }
 
   return(

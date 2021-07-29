@@ -7,14 +7,16 @@
     justify-content: center;
 
     >input{
-      width: 95%;
+      width: 98%;
       padding: 1rem;
-      border: .2px solid #c4c4c4;
+      border: 1px solid #c4c4c425;
       border-radius: 5px;
       font-family: inherit;
       font-size: 1.3rem;
       font-weight: 300;
       outline: none;
+      background-color: transparent;
+      color: white;
     }
   }
 }
