@@ -3,11 +3,23 @@ Tournament commands
 @tournament -s "tournament url" //get specific tournament
 @tournament -d "tournament url" //delete specific tournament
 
+Match commands
+@match -a "url of tournament" //get all matches of tournament
+/
+//matches
+response.data.included -> array of matches
 
-//Flow
+response.data.included.map(match => {
+  match.id - match id
+  match.relationships.player1.data.id - id of player 1
+  match.relationships.player2.data.id - id of player 2
+})
 
-1. User types input/command
-2. OnSubmit fires function to check if input or command
-3. If input, returns data obj to be stored in state { type: "text", data: data } where data is the string
-4. If command, checks if command is listed via switch; if not, return default data object
-5. If command found, use API to generate result and store in data. Then return data object { type: "tournament", data: data } where data is the result from API and type is the type of API use (tournament, matches etc..)
+data: {
+  {
+    match.id
+    match link
+    player 1 name
+    player 2 name
+  }
+}

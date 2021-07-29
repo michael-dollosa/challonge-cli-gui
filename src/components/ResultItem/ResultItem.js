@@ -1,4 +1,5 @@
 
+import Match from '../Match/Match'
 import Text from '../Text/Text'
 import Tournaments from '../Tournaments/Tournaments'
 import './ResultItem.scss'
@@ -22,6 +23,18 @@ const ResultItem = ({ item }) => {
         return (
           <Tournaments data={ item.data } />
         )
+      case "match":
+        const generatedMatchComponent = item.data.map(match => {
+           return(
+            <Match data={ match } tournamentURL={ item.tournamentURL }/>
+          )
+        })
+        //match data can be empty when tournament have not been started. check first condition
+        if(item.data.length === 0) return <Text data={ "Tournament have not yet started. Kindly start the tournament first before accessing matches." } />
+
+        //return matches if found
+        return generatedMatchComponent
+
         default:
           return <Text data="Invalid input. Please try again." />
      }

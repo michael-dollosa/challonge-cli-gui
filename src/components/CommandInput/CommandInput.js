@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { pushTextLogs, pushTournamentLogsAsync, pushSpecificTournamentLogsAsync } from '../../redux/logs/logs.action'
+import { pushTextLogs, pushTournamentLogsAsync, pushSpecificTournamentLogsAsync, pushMatchLogAsync } from '../../redux/logs/logs.action'
 
 import { connect } from 'react-redux'
 import './CommandInput.scss'
 import { parseInput } from '../../helper/inputParser'
 import Text from '../Text/Text'
 
-const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTournamentLogsAsync }) => {
+const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTournamentLogsAsync, pushMatchLogAsync }) => {
   const [inputValue, setInputValue] = useState("")
 
   const handleInputValue = (event) => {
@@ -43,7 +43,16 @@ const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTourn
         //default logic if command not found under @tournament
         setInputValue("")
         return pushTextLogs("Invalid Command. Please see command list for possible commands.")
+      case "@match":
+        //checking if command for get match via url (url must be inside double quotes)
+        if(data.length === 3 && data[1] === "-a" && (data[2][0] == '"' && data[2][data[2].length-1] == '"')){
+          setInputValue("")
+          return pushMatchLogAsync(data[2])
+        }
 
+        //default logic if command not found under @tournament
+        setInputValue("")
+        return pushTextLogs("Invalid Command. Please see command list for possible commands.")
       default:
         //default logic if command not found under all commands
         setInputValue("")
@@ -69,6 +78,7 @@ const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTourn
 const mapDispatchToProps = dispatch => ({
   pushTextLogs: data => dispatch(pushTextLogs(data)),
   pushTournamentLogsAsync: () => dispatch(pushTournamentLogsAsync()),
-  pushSpecificTournamentLogsAsync: url => dispatch(pushSpecificTournamentLogsAsync(url))
+  pushSpecificTournamentLogsAsync: url => dispatch(pushSpecificTournamentLogsAsync(url)),
+  pushMatchLogAsync: url => dispatch(pushMatchLogAsync(url))
 })
 export default connect(null, mapDispatchToProps)(CommandInput)

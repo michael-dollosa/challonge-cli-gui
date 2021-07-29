@@ -1,0 +1,84 @@
+.match-container{
+  width: 25rem;
+  min-height: 15rem;
+  border: .2px solid #adadad;
+  border-radius: 5px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin: 1rem;
+  >h1{
+    min-height: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1.3rem;
+    text-align: center;
+    font-weight: 500;
+  }
+  
+  >a{
+    color: #bdbdbd;
+    text-decoration: none;
+    >h3{
+      font-size: 1rem;
+      font-weight: 500;
+    }
+  }
+}
+
+.match_participants-container{
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  >.player{
+    // padding: 2rem;
+    min-width: 10rem;
+    max-width: 10rem;
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    >img{
+      align-self: center;
+      height: 5rem;
+      padding-bottom: 1rem;
+    }
+    >h1{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-height: 3rem;
+      font-size: 1rem;
+      font-weight: 300;
+    }
+  }
+}
+
+.match_scores-container{
+  >h1{
+    font-size: 2rem;
+    text-align: center;
+    font-weight: 300;
+  }
+}
+
+.match_loading-container{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  >h1{
+    min-height: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1.3rem;
+    text-align: center;
+    font-weight: 500;
+  }
+}
