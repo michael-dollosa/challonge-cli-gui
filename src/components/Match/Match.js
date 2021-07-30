@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react'
 import { getParticipant } from '../../api/participant'
-import { defaultIcon } from '../../helper/inputParser'
+import { defaultIcon } from '../../helper/imageSource'
 import './Match.scss'
 
 

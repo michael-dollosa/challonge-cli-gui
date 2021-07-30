@@ -1,5 +1,5 @@
 import './Tournaments.scss'
-import { defaultIcon } from '../../helper/inputParser'
+import { defaultIcon } from '../../helper/imageSource'
 const Tournaments = ({ data }) => {
   
   const link = data.attributes.fullChallongeUrl
