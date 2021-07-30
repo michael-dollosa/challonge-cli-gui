@@ -4,6 +4,8 @@ import { pushTextLogs, pushCommandLogs, pushTournamentLogsAsync, pushSpecificTou
 import { setAPIKey } from '../../redux/user/user.action'
 import { connect } from 'react-redux'
 import { parseInput } from '../../helper/inputParser'
+import { options } from '../../helper/hintOptions'
+import { Hint } from 'react-autocomplete-hint'
 import axios from '../../api/axiosInstance'
 import './CommandInput.scss'
 
@@ -110,15 +112,20 @@ const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTourn
 
   return(
     <section className="command_input-container">
-      <form onSubmit={ event => submitInput(event) }>
-        <input 
-          type="text" 
-          placeholder="Type your command"
-          value={ inputValue }
-          onChange={ event => handleInputValue(event) }
-          minLength="1"
-        />
+    
+      <form  onSubmit={ event => submitInput(event) }>
+        <Hint options={ options } className="command_input-hint-container" allowTabFill="true" >
+            <input 
+              type="text" 
+              placeholder="Type your command"
+              value={ inputValue }
+              onChange={ event => handleInputValue(event) }
+              minLength="1"
+            />
+        </Hint>
+        <button></button>
       </form>
+   
     </section>
   )
 }
