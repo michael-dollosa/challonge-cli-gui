@@ -1,6 +1,5 @@
 import axios from './axiosInstance'
 
-// axios.defaults.headers.common['Authorization'] = 'foo bar';
 //get all tournament created by user
 export const getTournaments = () => {
   return axios.get('/tournaments.json', {data:null})

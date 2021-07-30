@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react'
 import { pushTextLogs, pushCommandLogs, pushTournamentLogsAsync, pushSpecificTournamentLogsAsync, pushMatchLogAsync, pushSpecificMatchLogAsync, deleteTournamentAsync } from '../../redux/logs/logs.action'
 import { setAPIKey } from '../../redux/user/user.action'
 import { connect } from 'react-redux'
-import './CommandInput.scss'
 import { parseInput } from '../../helper/inputParser'
 import axios from '../../api/axiosInstance'
+import './CommandInput.scss'
 
 const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTournamentLogsAsync, pushMatchLogAsync, pushSpecificMatchLogAsync, deleteTournamentAsync, pushCommandLogs, apiKey, setAPIKey }) => {
   const [inputValue, setInputValue] = useState("")
@@ -14,9 +14,8 @@ const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTourn
     setInputValue(event.target.value)
   }
 
+  //set axios defaukt apiKey upon state change
   useEffect(() => {
-    console.log("use effect trigger")
-    console.log("api key", apiKey)
     axios.defaults.headers.common['Authorization'] = apiKey;
   }, [apiKey])
 
@@ -29,11 +28,12 @@ const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTourn
     //print command first
     pushTextLogs(inputValue)
 
-    //check for input first, then exit
+    //check for input first, then exit if not command
     if(!isCommand) return setInputValue("")
 
     //if input is command
     switch(data[0]){
+      //API command
       case "@api":
         if(data.length === 3 && data[1] === "-s" && (data[2][0] == '"' && data[2][data[2].length-1] == '"')){
           setInputValue("")
@@ -50,24 +50,28 @@ const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTourn
 
         setInputValue("")
         return pushTextLogs("Invalid Command. Please see @commands for list of commands.")
+
+      //command list
       case "@commands":
         setInputValue("")
         return pushCommandLogs()
 
+      //tournament commands
       case "@tournament":
-        //checking if command for get all tournaments
+
+        //@tournament -a ; get all tournament 
         if(data.length === 2 && data[1] === "-a"){
           setInputValue("")
           return pushTournamentLogsAsync(apiKey)
         }
 
-        //checking if command for get specific tournament via url (url must be inside double quotes)
+        //@tournament -s "tournament url" ; get specific tournament via URL
         if(data.length === 3 && data[1] === "-s" && (data[2][0] == '"' && data[2][data[2].length-1] == '"')){
           setInputValue("")
           return pushSpecificTournamentLogsAsync(data[2])
         }
 
-        //checking for delete tournament command
+        //@tournament -d "tournament url" ; delete specific tournament via URL
         if(data.length === 3 && data[1] === "-d" && (data[2][0] == '"' && data[2][data[2].length-1] == '"')){
           setInputValue("")
           return deleteTournamentAsync(data[2])
@@ -76,13 +80,17 @@ const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTourn
         //default logic if command not found under @tournament
         setInputValue("")
         return pushTextLogs("Invalid Command. Please see @commands for list of commands.")
+
+      //match commands
       case "@match":
-        //checking if command for get match via url (url must be inside double quotes)
+
+        //@match -a "tournament URL"
         if(data.length === 3 && data[1] === "-a" && (data[2][0] == '"' && data[2][data[2].length-1] == '"')){
           setInputValue("")
           return pushMatchLogAsync(data[2])
         }
 
+        //@match -s "tournament URL" "match ID"
         if(data.length === 4 && data[1] === "-s" && (data[2][0] == '"' && data[2][data[2].length-1] == '"') && (data[3][0] == '"' && data[3][data[3].length-1] == '"')){
           setInputValue("")
           return pushSpecificMatchLogAsync(data[2],data[3])
@@ -91,6 +99,8 @@ const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTourn
         //default logic if command not found under @tournament
         setInputValue("")
         return pushTextLogs("Invalid Command. Please see @commands for list of commands.")
+      
+
       default:
         //default logic if command not found under all commands
         setInputValue("")
@@ -127,4 +137,5 @@ const mapDispatchToProps = dispatch => ({
   pushSpecificMatchLogAsync: (url, matchId) => dispatch(pushSpecificMatchLogAsync(url, matchId)),
   deleteTournamentAsync: (url) => dispatch(deleteTournamentAsync(url))
 })
+
 export default connect(mapStateToProps, mapDispatchToProps)(CommandInput)

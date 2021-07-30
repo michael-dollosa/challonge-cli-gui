@@ -13,7 +13,6 @@ const chatReducer = (state = DEFAULT_STATE, action) => {
   //switch statement based on action passed
   switch(action.type) {
     case 'PUSH_TEXT_LOGS':
-      //sample return value
       return [...state, action.payload]
     case 'PUSH_TOURNAMENT_LOGS':
       return [...state, action.payload]
@@ -22,9 +21,6 @@ const chatReducer = (state = DEFAULT_STATE, action) => {
     default:
       return state
   }
-
-  
-
 }
 
 export default chatReducer

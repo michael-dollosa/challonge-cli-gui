@@ -6,7 +6,6 @@ import thunk from 'redux-thunk'
 import rootReducer from './root-reducer'
 
 const middlewares = [logger, thunk] //add more middlewares if needed
-
 const store = createStore(rootReducer, applyMiddleware(...middlewares))
 
 export default store

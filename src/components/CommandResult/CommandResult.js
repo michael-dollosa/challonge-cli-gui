@@ -6,6 +6,7 @@ import './CommandResult.scss'
 const CommandResult = ({ logs }) => {
   const ref = useRef(null)
 
+  //smooth scrolling to view newest log
   useEffect(() => {
     ref?.current?.scrollIntoView({
       behavior: "smooth"
@@ -15,8 +16,6 @@ const CommandResult = ({ logs }) => {
   const generatedLogs = logs.map(item => (
     <ResultItem item={ item } />
   ))
-
-  
 
   return(
     <section className="command_result-container">
