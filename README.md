@@ -4,7 +4,7 @@
 
 This is a mini react project created using Challonge API v2.0. 
 
-## After Cloning the project, use yarn install
+## After cloning the project, use yarn install
 
 ### `yarn install`
 
@@ -12,9 +12,9 @@ This is a mini react project created using Challonge API v2.0.
 
 ### `yarn start`
 
-## Starting using the CLI
+## Start using the Application
 
-The application would notify you that you have to set your own Challong API Key. You may create an account on their website - https://challonge.com/ to generate your own API Key.
+The application would notify you that you have to set your own Challonge API Key. You may create an account on their website - https://challonge.com/ to generate your own API Key.
 
 For the sake of testing, I have set my own API Key as the default state.
 
