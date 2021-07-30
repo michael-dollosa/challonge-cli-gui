@@ -16,8 +16,6 @@ This is a mini react project created using Challonge API v2.0.
 
 The application would notify you that you have to set your own Challonge API Key. You may create an account on their website - https://challonge.com/ to generate your own API Key.
 
-For the sake of testing, I have set my own API Key as the default state.
-
 ## List of possible commands
 
 Below are the list of commands currently working in this application
