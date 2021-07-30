@@ -1,5 +1,5 @@
 const DEFAULT_STATE = {
-  api: process.env.REACT_APP_CHALLONGE_API_KEY
+  api: process.env.REACT_APP_CHALLONGE_API_KEY ? process.env.REACT_APP_CHALLONGE_API_KEY : "use @commands to check how to setup API Key"
 }
 
 const userReducer = (state = DEFAULT_STATE, action) => {
