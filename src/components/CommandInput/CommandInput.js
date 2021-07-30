@@ -37,6 +37,8 @@ const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTourn
     switch(data[0]){
       //API command
       case "@api":
+        
+        //@api -s "API KEY"
         if(data.length === 3 && data[1] === "-s" && (data[2][0] == '"' && data[2][data[2].length-1] == '"')){
           setInputValue("")
           setAPIKey(data[2])
@@ -44,6 +46,7 @@ const CommandInput = ({ pushTextLogs, pushTournamentLogsAsync, pushSpecificTourn
           return true
         }
 
+        //@api -g
         if(data.length === 2 && data[1] === "-g"){
           setInputValue("")
           pushTextLogs(`API Key Used: ${apiKey}`)
