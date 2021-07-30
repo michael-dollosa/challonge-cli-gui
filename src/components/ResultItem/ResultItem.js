@@ -17,14 +17,14 @@ const ResultItem = ({ item }) => {
         return <Text data={ item.data } />
 
       case "tournament":
-        const generatedTournamentComponent = item.data.map(tournament => <Tournaments data={ tournament } />)
+        const generatedTournamentComponent = item.data.map(tournament => <Tournaments data={ tournament } key={ tournament.id }/>)
         return generatedTournamentComponent
 
       case "specific tournament":
         return <Tournaments data={ item.data } />
 
       case "match":
-        const generatedMatchComponent = item.data.map(match => <Match data={ match } tournamentURL={ item.tournamentURL }/>)
+        const generatedMatchComponent = item.data.map(match => <Match data={ match } tournamentURL={ item.tournamentURL } key={ match.id }/>)
         //match data can be empty when tournament have not been started. check first condition
         if(item.data.length === 0) return <Text data={ "Tournament have not yet started. Kindly start the tournament first before accessing matches." } />
 
@@ -37,7 +37,7 @@ const ResultItem = ({ item }) => {
         return <Text data="Invalid input. Please try again." />
      }
    }
-   
+
   return(
     <section className="result_item-container">
       { renderItem(item) }

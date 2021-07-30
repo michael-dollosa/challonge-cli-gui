@@ -91,6 +91,8 @@ export const deleteTournamentAsync = (url) => {
     dispatch(pushTextLogs(`Deleting tournament with url of ${url} from your account`))
     deleteTournament(modifiedUrl)
       .then(response => {
+        //success response can be undefined based on API
+        if(response === undefined) return dispatch(pushTextLogs("Command failed. Please double check the URL of Tournament."))
         dispatch(pushTextLogs(`Tournament with url of ${url} has been deleted from your account. Type @tournament -a to check.`))
       })
       .catch(error => {

@@ -6,15 +6,15 @@ import './Match.scss'
 
 
 const Match = ({data, tournamentURL}) => {
-  console.log(data)
+
   const [player1, setPlayer1] = useState("")
   const [player2, setPlayer2] = useState("")
+
   const state = data.attributes.state
   const matchId = data.id
   const score = data.attributes.scores
   const player1_id = data.relationships.player1.data.id
   const player2_id = data.relationships.player2.data.id
-  console.log(state,score,player1_id,player2_id, tournamentURL)
 
   useEffect(() => {
     //get details for player 1

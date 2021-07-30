@@ -13,8 +13,8 @@ const CommandResult = ({ logs }) => {
     })
   },[logs])
 
-  const generatedLogs = logs.map(item => (
-    <ResultItem item={ item } />
+  const generatedLogs = logs.map((item, index) => (
+    <ResultItem item={ item } key={ index } />
   ))
 
   return(
