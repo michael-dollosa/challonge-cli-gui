@@ -44,4 +44,8 @@ Fetch all matches from specific Tournament
 Fetch specific match
 ### `@match -s "Tournament URL" "Match ID"`
 
+![image](https://user-images.githubusercontent.com/5262223/132080939-7fad5b75-ceea-447a-a34f-c06a8fb5014a.png)
+![image](https://user-images.githubusercontent.com/5262223/132080983-fdf78adf-ddcc-4009-baa1-266d2d8e631f.png)
+
+
 
